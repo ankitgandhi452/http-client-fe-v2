@@ -17,8 +17,8 @@ const REQUEST_CONTEXT_MAP = {
   REQUEST_OPTIONS: 'REQUEST_OPTIONS'
 }
 
-export default class HttpClient {
-  // Http Client Store
+export default class WebHttp {
+  // Web Http Store
   #context = new Store()
   constructor (_CONFIG = {}, _CONSTANTS = {}) {
     // Merge Config & Constants
@@ -31,7 +31,7 @@ export default class HttpClient {
 
     // Warn Integrater for issues
     if (!_BASE && routesPresent) {
-      console.warn('HttpClientCreator: _BASE is not passed in API_ROUTES')
+      console.warn('WebHttp: _BASE is not passed in API_ROUTES')
     }
 
     // Init Context
