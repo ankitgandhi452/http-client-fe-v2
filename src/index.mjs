@@ -76,7 +76,11 @@ export default class WebHttp {
       // Handle Axios Response Error
       if (response) {
         const { status, data: body } = response
-        const { statusCode, message, error: err } = body
+        const {
+          statusCode = 500,
+          message = 'Internal Server Error',
+          error: err = {}
+        } = body
         const { code, publicKey } = err
 
         if (code === 'API_CRYPTO::PRIVATE_KEY_NOT_FOUND') {
