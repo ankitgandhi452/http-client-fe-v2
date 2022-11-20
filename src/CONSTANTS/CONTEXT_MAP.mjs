@@ -11,8 +11,3 @@ const CONTEXT_MAP = {
 }
 
 export default CONTEXT_MAP
-
-export const ROTATE_VALUE_KEYS = [
-  CONTEXT_MAP.ACCESS_TOKEN,
-  CONTEXT_MAP.PUBLIC_KEY
-]

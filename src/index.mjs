@@ -5,7 +5,7 @@ import ApiError from './ApiError.mjs'
 
 import { formatRequestOptions } from './helper.mjs'
 import DEFAULT_CONFIG from './DEFAULT_CONFIG.mjs'
-import CONTEXT_MAP, { ROTATE_VALUE_KEYS } from './CONSTANTS/CONTEXT_MAP.mjs'
+import CONTEXT_MAP from './CONSTANTS/CONTEXT_MAP.mjs'
 import HEADERS from './CONSTANTS/HEADERS.mjs'
 import AXIOS from './CONSTANTS/AXIOS.mjs'
 import ClientManager from './ClientManager.mjs'
@@ -19,7 +19,7 @@ const REQUEST_CONTEXT_MAP = {
 
 export default class WebHttp {
   // Web Http Store
-  #context = new Store()
+  context = new Store()
   constructor (_CONFIG = {}, _CONSTANTS = {}) {
     // Merge Config & Constants
     const CONFIG = { ...DEFAULT_CONFIG, ..._CONFIG }
@@ -37,21 +37,16 @@ export default class WebHttp {
     // Init Context
     const { CLIENT_ID_REQUEST_HEADER_VALUE } = CONSTANTS
     const sessionId = v4().replaceAll('-', '')
-    this.#context.set(CONTEXT_MAP.CONFIG, CONFIG)
-    this.#context.set(CONTEXT_MAP.CONSTANTS, CONSTANTS)
-    this.#context.set(CONTEXT_MAP.API_KEY, API_KEY)
-    this.#context.set(CONTEXT_MAP.CLIENT_ID, CLIENT_ID_REQUEST_HEADER_VALUE)
-    this.#context.set(CONTEXT_MAP.SESSION_ID, sessionId)
-
-    // Bind Functions
-    this.set = this.#context.set
-    this.get = this.#context.get
-    this.del = this.#context.del
+    this.context.set(CONTEXT_MAP.CONFIG, CONFIG)
+    this.context.set(CONTEXT_MAP.CONSTANTS, CONSTANTS)
+    this.context.set(CONTEXT_MAP.API_KEY, API_KEY)
+    this.context.set(CONTEXT_MAP.CLIENT_ID, CLIENT_ID_REQUEST_HEADER_VALUE)
+    this.context.set(CONTEXT_MAP.SESSION_ID, sessionId)
   }
 
   async request (options = {}) {
     // Create a local context for all interceptos
-    const requestContext = this.#context.clone()
+    const requestContext = this.context.clone()
     const CONFIG = requestContext.get(CONTEXT_MAP.CONFIG)
 
     // Feature to use apiPath option
@@ -65,13 +60,8 @@ export default class WebHttp {
 
     try {
       const response = await client.request(requestOptions)
-
-      // Store all keys which can rotate per request
-      this.#saveRotateKeys(requestContext)
       return response
     } catch (error) {
-      // Store all keys which can rotate per request
-      this.#saveRotateKeys(requestContext)
       const { request, response } = error
       // Handle Axios Response Error
       if (response) {
@@ -84,7 +74,7 @@ export default class WebHttp {
         const { code, publicKey } = err
 
         if (code === 'API_CRYPTO::PRIVATE_KEY_NOT_FOUND') {
-          this.#context.set(CONTEXT_MAP.PUBLIC_KEY, publicKey)
+          this.context.set(CONTEXT_MAP.PUBLIC_KEY, publicKey)
           return await this.request(options)
         }
 
@@ -124,13 +114,5 @@ export default class WebHttp {
       // logger.error(err.message, err)
       throw apiError
     }
-  }
-
-  // Store keys which can rotate per request
-  #saveRotateKeys (requestContext) {
-    ROTATE_VALUE_KEYS.forEach(key => {
-      const value = requestContext.get(key)
-      this.#context.set(key, value)
-    })
   }
 }
