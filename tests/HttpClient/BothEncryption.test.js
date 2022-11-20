@@ -16,8 +16,8 @@ async function makeHanshakeCall () {
   const { data: respBody } = response
   const { data } = respBody
   const { publicKey } = data
-  webHttp.set(CONTEXT_MAP.PUBLIC_KEY, publicKey)
-  webHttp.set(CONTEXT_MAP.APP_UID, 'APP_UID')
+  webHttp.context.set(CONTEXT_MAP.PUBLIC_KEY, publicKey)
+  webHttp.context.set(CONTEXT_MAP.APP_UID, 'APP_UID')
 }
 async function makeServiceCall () {
   const options = { apiPath: 'API_CRYPTO_SAMPLE.SERVICE.POST', data: reqBody }

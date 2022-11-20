@@ -1,6 +1,6 @@
 {
   "name": "@ot06/web-http",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Web http Client using axios with JWT Authentication & JOSE Encrytion.",
   "type": "module",
   "scripts": {
