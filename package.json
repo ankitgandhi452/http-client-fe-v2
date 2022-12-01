@@ -1,6 +1,6 @@
 {
   "name": "@m92/http-client-fe-v2",
-  "version": "1.0.4",
+  "version": "1.0.0",
   "description": "Web http Client using axios with JWT Authentication & JOSE Encrytion.",
   "type": "module",
   "scripts": {
