@@ -1,13 +1,13 @@
 {
-  "name": "@ot06/web-http",
+  "name": "@m92/http-client-fe-v2",
   "version": "1.0.4",
   "description": "Web http Client using axios with JWT Authentication & JOSE Encrytion.",
   "type": "module",
   "scripts": {
     "test": "jest"
   },
-  "repository": "git@bitbucket.org:omniscient-tech06/web-http.git",
-  "author": "Omniscient Technologies <omniscienttech.06@gmail.com>",
+  "repository": "git@github.com:ankitgandhi452/http-client-fe-v2.git",
+  "author": "",
   "license": "MIT",
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",

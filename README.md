@@ -1,6 +1,6 @@
-# WEB HTTP
+# http-client-fe-v2
 
-WEB HTTP is a custom http-request package for browser with in-built support for [JOSE (JWE) encryption](https://jose.readthedocs.io/en/latest/#jwe). The ready package for backed could be found at
+http-client-fe-v2 is a custom http-request package for browser with in-built support for [JOSE (JWE) encryption](https://jose.readthedocs.io/en/latest/#jwe). The ready package for backed could be found at
 
 1. [Express JS(NodeJS)](https://www.npmjs.com/package/@m92/api-crypto)
 
